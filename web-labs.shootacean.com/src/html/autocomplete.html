@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <title>Auto Complete | HTML Labs | web-labs.shootacean.com</title>
+  <style>
+      section {
+          margin-bottom: 1rem;
+      }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Auto Complete <| <a href="index.html">HTML</a> <| <a href="..">Web Labs</a></h1>
+</header>
+<main>
+  <section>
+    <form>
+      <fieldset>
+        <legend>Not set autocomplete attr</legend>
+        <input type="text">
+        <input type="password">
+      </fieldset>
+    </form>
+    <pre>
+      <code>
+        &lt;input type="text"&gt;
+        &lt;input type="password"&gt;
+      </code>
+    </pre>
+  </section>
+  <section>
+    <form>
+      <fieldset>
+        <legend>Set autocomplete attr</legend>
+        <input type="text" placeholder="username" autocomplete="username">
+        <input type="password" placeholder="current-password" autocomplete="current-password">
+      </fieldset>
+    </form>
+    <pre>
+      <code>
+        &lt;form&gt;
+          &lt;input type="text" placeholder="username" autocomplete="username"&gt;
+          &lt;input type="password" placeholder="password" autocomplete="current-password"&gt;
+        &lt;/form&gt;
+      </code>
+    </pre>
+  </section>
+  <section>
+    <form>
+      <fieldset>
+        <legend>Sign up</legend>
+        <input type="text" placeholder="username" autocomplete="username">
+        <input type="password" placeholder="password" autocomplete="new-password">
+        <input type="password" placeholder="password" autocomplete="new-password">
+      </fieldset>
+    </form>
+    <pre>
+      <code>
+        &lt;input type="text" placeholder="username" autocomplete="username"&gt;
+        &lt;input type="password" placeholder="new-password" autocomplete="new-password"&gt;
+        &lt;input type="password" placeholder="new-password" autocomplete="new-password"&gt;
+      </code>
+    </pre>
+  </section>
+  <section>
+    <form>
+      <fieldset>
+        <legend>Password Change</legend>
+        <input type="text" placeholder="username" autocomplete="username" value="web-labs@shootacean.com"
+               style="display: none">
+        <input type="password" placeholder="current-password" autocomplete="current-password">
+        <input type="password" placeholder="new-password" autocomplete="new-password">
+        <input type="password" placeholder="new-password" autocomplete="new-password">
+      </fieldset>
+    </form>
+    <pre>
+      <code>
+        &lt;input type="text" placeholder="username" autocomplete="username" value="web-labs@shootacean.com" style="display: none"&gt;
+        &lt;input type="password" placeholder="current-password" autocomplete="current-password"&gt;
+        &lt;input type="password" placeholder="new-password" autocomplete="new-password"&gt;
+        &lt;input type="password" placeholder="new-password" autocomplete="new-password"&gt;
+      </code>
+    </pre>
+  </section>
+  <section>
+    <h2 id="user-data">User Data</h2>
+    <form>
+      <fieldset>
+        <legend>User Data</legend>
+        <input type="text" placeholder="Full Name" autocomplete="name">
+        <input type="email" placeholder="email" autocomplete="email">
+        <input type="text" placeholder="birthday" autocomplete="bday">
+        <input type="text" placeholder="birthday year" autocomplete="bday-year">
+        <input type="text" placeholder="birthday month" autocomplete="bday-month">
+        <input type="text" placeholder="birthday day" autocomplete="bday-day">
+        <input type="text" placeholder="sex" autocomplete="sex">
+        <input type="text" placeholder="tel" autocomplete="tel">
+        <input type="text" placeholder="country" autocomplete="shipping country">
+        <input type="text" placeholder="country name" autocomplete="shipping country-name">
+        <input type="text" placeholder="postal code" autocomplete="shipping postal-code">
+        <input type="text" placeholder="address-level1" autocomplete="shipping address-level1">
+        <input type="text" placeholder="address-level2" autocomplete="shipping address-level2">
+        <input type="text" placeholder="address-level3" autocomplete="shipping address-level3">
+        <input type="text" placeholder="address-level4" autocomplete="shipping address-level4">
+        <input type="text" placeholder="street address" autocomplete="shipping street-address">
+        <input type="text" placeholder="address line 1" autocomplete="shipping address-line1">
+        <input type="text" placeholder="address line 2" autocomplete="shipping address-line2">
+        <input type="text" placeholder="address line 3" autocomplete="shipping address-line3">
+        <p>region, locality is deprecated.</p>
+        <input type="text" placeholder="region" autocomplete="shipping region">
+        <input type="text" placeholder="locality" autocomplete="shipping locality">
+      </fieldset>
+    </form>
+    <pre>
+      <code>
+        &lt;input type="text" placeholder="cc-name" autocomplete="cc-name"&gt;
+        &lt;input type="text" placeholder="cc-number" autocomplete="cc-number"&gt;
+        &lt;input type="text" placeholder="cc-csc" autocomplete="cc-csc"&gt;
+        &lt;input type="text" placeholder="cc-exp-month" autocomplete="cc-exp-month"&gt;
+        &lt;input type="text" placeholder="cc-exp-year" autocomplete="cc-exp-year"&gt;
+      </code>
+    </pre>
+  </section>
+  <section>
+    <form>
+      <fieldset>
+        <legend>Credit Card</legend>
+        <input type="password" placeholder="cc-name" autocomplete="cc-name">
+        <input type="password" placeholder="cc-number" autocomplete="cc-number">
+        <input type="password" placeholder="cc-csc" autocomplete="cc-csc">
+        <input type="password" placeholder="cc-exp-month" autocomplete="cc-exp-month">
+        <input type="password" placeholder="cc-exp-year" autocomplete="cc-exp-year">
+      </fieldset>
+    </form>
+    <pre>
+      <code>
+        &lt;input type="text" placeholder="cc-name" autocomplete="cc-name"&gt;
+        &lt;input type="text" placeholder="cc-number" autocomplete="cc-number"&gt;
+        &lt;input type="text" placeholder="cc-csc" autocomplete="cc-csc"&gt;
+        &lt;input type="text" placeholder="cc-exp-month" autocomplete="cc-exp-month"&gt;
+        &lt;input type="text" placeholder="cc-exp-year" autocomplete="cc-exp-year"&gt;
+      </code>
+    </pre>
+  </section>
+</main>
+<aside>
+  <h2>Reference</h2>
+  <ul>
+    <li>https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input</li>
+    <li>https://developers.google.com/web/updates/2015/06/checkout-faster-with-autofill</li>
+    <li>https://developers.google.com/web/fundamentals/design-and-ux/input/forms</li>
+    <li>https://html.spec.whatwg.org/multipage/form-control-infrastructure.html</li>
+  </ul>
+</aside>
+</body>
+</html>
