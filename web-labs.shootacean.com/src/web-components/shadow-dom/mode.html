@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Shadow DOM<| Web Components | web-labs.shootacean.com</title>
+</head>
+<body>
+<header>
+  <h1>Shadow DOM <| <a href="../index.html">Web Components</a> <| <a href="..">Web Labs</a></h1>
+</header>
+<main>
+  <section>
+    <shadow-open id="open"></shadow-open>
+    <button type="button" id="open-button">Change</button>
+  </section>
+  <section>
+    <shadow-closed id="closed"></shadow-closed>
+    <button type="button" id="closed-button">Change</button>
+  </section>
+</main>
+<script>
+  class ShadowOpen extends HTMLElement {
+    constructor() {
+      super();
+      const shadow = this.attachShadow({mode: 'open'});
+      const p = document.createElement('p');
+      p.innerHTML = 'Open';
+      shadow.appendChild(p);
+    }
+  }
+
+  class ShadowClosed extends HTMLElement {
+    constructor() {
+      super();
+      const shadow = this.attachShadow({mode: 'closed'});
+      const p = document.createElement('p');
+      p.innerHTML = 'Closed';
+      shadow.appendChild(p);
+    }
+  }
+
+  customElements.define('shadow-open', ShadowOpen);
+  customElements.define('shadow-closed', ShadowClosed);
+
+  document.getElementById('open-button').addEventListener('click', function () {
+    // shadowRootにアクセスできる
+    const s = document.getElementById('open').shadowRoot;
+    console.debug(s);
+    s.querySelector('p').innerHTML = 'changed';
+  });
+
+  document.getElementById('closed-button').addEventListener('click', function () {
+    // nullが返ってくるので shadowRoot にアクセスできない
+    const s = document.getElementById('closed').shadowRoot;
+    console.debug(s);
+    s.querySelector('p').innerHTML = 'changed';
+  });
+</script>
+</body>
+</html>
