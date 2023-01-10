@@ -6,23 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dark Mode | HTML MOC | web-labs.shootacean.com</title>
     <style>
-        :root {
+        /* STEP 1: UIでの切り替えが不要な場合 */
+        /* :root {
             --main-bg-color: white;
         }
-
         @media (prefers-color-scheme: dark) {
             :root {
                 --main-bg-color: black;
             }
         }
-
+        body {
+            background-color: var(--main-bg-color);
+        } */
+        /* STEP 2:UIで切り替える場合 */
+        :root {
+            --main-bg-color: white;
+        }
+        :root.dark {
+            /* TODO invertではなくダークモード用のカラーを定義する */
+            filter: invert(1);
+            /* --main-bg-color: black; */
+        }
         body {
             background-color: var(--main-bg-color);
         }
     </style>
 </head>
 <body>
-    <!-- TODO スイッチでのモード切り替え -->
+    <!-- スイッチでのモード切り替え -->
+    <label for="dark-mode-checkbox"><input type="checkbox" name="dark-mode-checkbox" id="dark-mode-checkbox">Dark Mode</label>
+    <script>
+        const darkModeCheckbox = document.getElementById('dark-mode-checkbox')
+        darkModeCheckbox.addEventListener('change', function () {
+            if (this.checked) {
+                document.documentElement.classList.add("dark");
+                // this.checked = true;
+            } else {
+                document.documentElement.classList.remove("dark");
+                // this.checked = false;
+            }
+        })
+    </script>
     <!-- TODO スイッチの状態維持 -->
 </body>
 </html>
