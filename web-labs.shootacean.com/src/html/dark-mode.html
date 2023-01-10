@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Mode | HTML MOC | web-labs.shootacean.com</title>
+    <style>
+        :root {
+            --main-bg-color: white;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --main-bg-color: black;
+            }
+        }
+
+        body {
+            background-color: var(--main-bg-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- TODO スイッチでのモード切り替え -->
+    <!-- TODO スイッチの状態維持 -->
+</body>
+</html>
