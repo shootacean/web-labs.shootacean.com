@@ -18,6 +18,7 @@
         body {
             background-color: var(--main-bg-color);
         } */
+
         /* STEP 2:UIで切り替える場合 */
         :root {
             --main-bg-color: white;
@@ -37,16 +38,30 @@
     <label for="dark-mode-checkbox"><input type="checkbox" name="dark-mode-checkbox" id="dark-mode-checkbox">Dark Mode</label>
     <script>
         const darkModeCheckbox = document.getElementById('dark-mode-checkbox')
+        const onDarkMode = () => {
+            document.documentElement.classList.add("dark");
+            sessionStorage.setItem('dark', 'true')
+            darkModeCheckbox.checked = true
+        }
+        const offDarkMode = () => {
+            document.documentElement.classList.remove("dark");
+            sessionStorage.setItem('dark', 'false')
+            darkModeCheckbox.checked = false
+        }
         darkModeCheckbox.addEventListener('change', function () {
             if (this.checked) {
-                document.documentElement.classList.add("dark");
-                // this.checked = true;
+                onDarkMode()
             } else {
-                document.documentElement.classList.remove("dark");
-                // this.checked = false;
+                offDarkMode()
             }
         })
+        // STEP 3: スイッチの状態維持
+        // TODO STEP 4: 初期モードをシステム設定から拾う
+        if (sessionStorage.getItem('dark') === 'true') {
+            onDarkMode()
+        } else {
+            offDarkMode()
+        }
     </script>
-    <!-- TODO スイッチの状態維持 -->
 </body>
 </html>
