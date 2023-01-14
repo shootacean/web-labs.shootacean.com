@@ -48,6 +48,13 @@
             sessionStorage.setItem('dark', 'false')
             darkModeCheckbox.checked = false
         }
+        const resetDarkMode = () => {
+            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                onDarkMode()
+            } else {
+                offDarkMode()
+            }
+        }
         darkModeCheckbox.addEventListener('change', function () {
             if (this.checked) {
                 onDarkMode()
@@ -56,11 +63,13 @@
             }
         })
         // STEP 3: スイッチの状態維持
-        // TODO STEP 4: 初期モードをシステム設定から拾う
         if (sessionStorage.getItem('dark') === 'true') {
             onDarkMode()
-        } else {
+        } else if (sessionStorage.getItem('dark') === 'false') {
             offDarkMode()
+        } else {
+            // STEP 4: 初期モードをシステム設定から拾う
+            resetDarkMode()
         }
     </script>
 </body>
