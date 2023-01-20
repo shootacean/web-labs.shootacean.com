@@ -8,18 +8,41 @@
 </head>
 <body>
     <div>
-        <canvas id="myChart"></canvas>
+        <canvas id="getting-started"></canvas>
+        <canvas id="radar"></canvas>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        const ctx = document.getElementById('myChart');
-        new Chart(ctx, {
+        // getting-started
+        const ctxGettingStarted = document.getElementById('getting-started');
+        new Chart(ctxGettingStarted, {
             type: 'bar',
             data: {
                 labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
                 datasets: [{
                     label: '# of Votes',
                     data: [12, 19, 3, 5, 2, 3],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // radar
+        const ctxRadar = document.getElementById('radar');
+        new Chart(ctxRadar, {
+            type: 'radar',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [100, 30, 50, 20, 70, 60],
                     borderWidth: 1
                 }]
             },
