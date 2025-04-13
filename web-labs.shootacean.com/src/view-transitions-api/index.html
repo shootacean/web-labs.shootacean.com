@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Transitions API Demo</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            view-transition-name: page-title;
+        }
+        
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .card {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+        
+        .card-content {
+            padding: 15px;
+        }
+        
+        .detail-view {
+            display: none;
+        }
+        
+        .detail-view.active {
+            display: block;
+        }
+        
+        .detail-view img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            view-transition-name: detail-image;
+        }
+        
+        .back-button {
+            margin-top: 20px;
+            padding: 8px 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            view-transition-name: back-button;
+        }
+        
+        .card-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        /* View Transitions API specific styles */
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fade-out {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        
+        @keyframes slide-from-right {
+            from { transform: translateX(100px); }
+            to { transform: translateX(0); }
+        }
+        
+        @keyframes slide-to-left {
+            from { transform: translateX(0); }
+            to { transform: translateX(-100px); }
+        }
+        
+        ::view-transition-old(root) {
+            animation: 0.5s fade-out ease;
+        }
+        
+        ::view-transition-new(root) {
+            animation: 0.5s fade-in ease;
+        }
+        
+        ::view-transition-old(detail-image) {
+            animation: 0.5s fade-out ease, 0.5s slide-to-left ease;
+        }
+        
+        ::view-transition-new(detail-image) {
+            animation: 0.5s fade-in ease, 0.5s slide-from-right ease;
+        }
+    </style>
+</head>
+<body>
+    <h1>View Transitions API Demo</h1>
+    <p>
+        このデモでは、View Transitions APIを使って、カードビューと詳細ビューの間の滑らかな遷移を実現しています。
+        カードをクリックすると、アニメーションとともに詳細ビューに切り替わります。
+    </p>
+    
+    <div class="card-container" id="cardContainer">
+        <!-- Cards will be inserted here by JavaScript -->
+    </div>
+    
+    <div class="detail-view" id="detailView">
+        <button class="back-button" id="backButton">← 戻る</button>
+        <h2 id="detailTitle"></h2>
+        <img id="detailImage" src="" alt="">
+        <p id="detailDescription"></p>
+    </div>
+    
+    <script>
+        // サンプルデータ
+        const items = [
+            {
+                id: 1,
+                title: '富士山',
+                image: 'https://placehold.jp/300x200.png',
+                description: '富士山は、静岡県と山梨県にまたがる活火山で、日本の最高峰（標高3,776m）です。その美しい円錐形は日本のシンボルとなっています。'
+            },
+            {
+                id: 2,
+                title: '京都',
+                image: 'https://placehold.jp/300x200.png',
+                description: '京都は1000年以上の歴史を持つ古都で、多くの歴史的な寺院、神社、庭園が残されています。日本の伝統文化の中心地として知られています。'
+            },
+            {
+                id: 3,
+                title: '沖縄',
+                image: 'https://placehold.jp/300x200.png',
+                description: '沖縄は日本最南端の県で、美しい海岸線と独自の琉球文化で知られています。透明度の高い海と豊かなサンゴ礁は、多くの観光客を魅了しています。'
+            },
+            {
+                id: 4,
+                title: '北海道',
+                image: 'https://placehold.jp/300x200.png',
+                description: '北海道は日本最北の島で、広大な自然、雄大な山々、美しい湖などが魅力です。冬はスキーリゾート、夏は涼しい気候と花畑が人気です。'
+            }
+        ];
+        
+        // View Transitions APIのサポート確認
+        function supportsViewTransitions() {
+            // return false;
+            return document.startViewTransition !== undefined;
+        }
+        
+        // カードの生成
+        function createCards() {
+            const container = document.getElementById('cardContainer');
+            
+            items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.dataset.id = item.id;
+                
+                card.innerHTML = `
+                    <img src="${item.image}" alt="${item.title}">
+                    <div class="card-content">
+                        <div class="card-title">${item.title}</div>
+                    </div>
+                `;
+                
+                card.addEventListener('click', () => showDetail(item));
+                container.appendChild(card);
+            });
+        }
+        
+        // 詳細表示
+        function showDetail(item) {
+            const detailView = document.getElementById('detailView');
+            const cardContainer = document.getElementById('cardContainer');
+            const detailTitle = document.getElementById('detailTitle');
+            const detailImage = document.getElementById('detailImage');
+            const detailDescription = document.getElementById('detailDescription');
+            
+            detailTitle.textContent = item.title;
+            detailImage.src = item.image;
+            detailImage.alt = item.title;
+            detailDescription.textContent = item.description;
+            
+            // アニメーションありで表示切替
+            if (supportsViewTransitions()) {
+                document.startViewTransition(() => {
+                    cardContainer.style.display = 'none';
+                    detailView.classList.add('active');
+                    document.title = `${item.title} - View Transitions API Demo`;
+                });
+            } else {
+                // View Transitions APIをサポートしていない場合は通常の切替
+                cardContainer.style.display = 'none';
+                detailView.classList.add('active');
+                document.title = `${item.title} - View Transitions API Demo`;
+            }
+        }
+        
+        // カード一覧に戻る
+        function backToList() {
+            const detailView = document.getElementById('detailView');
+            const cardContainer = document.getElementById('cardContainer');
+            
+            // アニメーションありで表示切替
+            if (supportsViewTransitions()) {
+                document.startViewTransition(() => {
+                    detailView.classList.remove('active');
+                    cardContainer.style.display = 'grid';
+                    document.title = 'View Transitions API Demo';
+                });
+            } else {
+                // View Transitions APIをサポートしていない場合は通常の切替
+                detailView.classList.remove('active');
+                cardContainer.style.display = 'grid';
+                document.title = 'View Transitions API Demo';
+            }
+        }
+        
+        // 初期化
+        document.addEventListener('DOMContentLoaded', () => {
+            createCards();
+            document.getElementById('backButton').addEventListener('click', backToList);
+            
+            // View Transitions APIのサポート状況を表示
+            const supportMessage = document.createElement('p');
+            supportMessage.textContent = supportsViewTransitions() 
+                ? 'お使いのブラウザはView Transitions APIをサポートしています。スムーズな遷移をお楽しみください。' 
+                : 'お使いのブラウザはView Transitions APIをサポートしていません。基本的な遷移が使用されます。';
+            document.body.insertBefore(supportMessage, document.querySelector('.card-container'));
+        });
+    </script>
+</body>
+</html>
